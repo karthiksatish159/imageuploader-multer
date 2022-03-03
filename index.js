@@ -6,6 +6,7 @@ const url=require('./setup/myUrls').url;
 const path=require('path');
 const mongoose=require('mongoose');
 const multer=require('multer');
+
 mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('mongodb successfully connected'))
 .catch((err)=>console.log(err));
