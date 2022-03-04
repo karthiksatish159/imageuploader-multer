@@ -1,0 +1,41 @@
+<html>
+<head>
+<style>
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+</style>
+</head>
+<h1>Uploaded Images</h1>
+<div>
+    <% images.forEach(function(i) { %>
+    <div>
+        <div>
+            <img src="data:i/<%=i.image.contentType%>;base64,
+                 <%=i.image.data.toString('base64')%>">
+            <div>
+                <h5><%= i.name %></h5>
+                  
+            </div>
+        </div>
+    </div>
+    <% }) %>
+</div>
+</html>

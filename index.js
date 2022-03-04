@@ -6,7 +6,7 @@ const url=require('./setup/myUrls').url;
 const path=require('path');
 const mongoose=require('mongoose');
 const multer=require('multer');
-
+const fs=require('fs');
 mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('mongodb successfully connected'))
 .catch((err)=>console.log(err));
@@ -56,7 +56,7 @@ app.post('/save',(req,res)=>
                     name:req.body.name,
                     image:
                     {
-                        data:req.file.filename,
+                        data:fs.readFileSync(path.join(__dirname + '/public/upload/' + req.file.filename)),
                         contentType:'image/jpg'
                     }
                 })
@@ -73,5 +73,22 @@ app.post('/save',(req,res)=>
         }
     })
 
+})
+app.get('/getpics',(req,res)=>
+{
+    Image.find()
+    .then(img=>
+        {
+            if(img)
+            {
+             
+                res.render('getall',{images:img});
+            }
+            else
+            {
+                res.redirect('/');
+            }
+        })
+    .catch(err=>console.log(err));
 })
 app.listen(3000,()=>console.log("server is running on 3000"));
